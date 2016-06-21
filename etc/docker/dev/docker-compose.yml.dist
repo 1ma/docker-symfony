@@ -1,0 +1,25 @@
+version: '2'
+services:
+  web:
+    image: nginx:1.11-alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ./etc/docker/dev/web:/etc/nginx/conf.d
+    volumes_from:
+      - app
+  app:
+    image: 1maa/php-dev:7.0
+    ports:
+      - "4444:22"
+    volumes:
+      - .:/var/www/docker-symfony.dev
+    working_dir: /var/www/docker-symfony.dev
+  db:
+    image: 1maa/postgres-dev:9.5
+    volumes:
+      - db_data:/var/lib/postgres/9.5
+volumes:
+  db_data: ~
