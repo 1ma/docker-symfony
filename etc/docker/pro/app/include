@@ -1,0 +1,15 @@
+/app/config/config.yml
+/app/config/config_prod.yml
+/app/config/routing.yml
+/app/config/security.yml
+/app/config/services.yml
+/app/Resources/
+/app/AppCache.php
+/app/AppKernel.php
+/app/autoload.php
+/bin/console
+/composer.json
+/composer.lock
+/src/
+/var/cache/.gitkeep
+/web/app.php

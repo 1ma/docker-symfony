@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: web
+    depends_on:
+      - app
+    ports:
+      - 80
+  app:
+    build: app

@@ -3,3 +3,17 @@ MAKEFILE_ABS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 .PHONY: dev
 dev:
 	cp -up $(MAKEFILE_ABS_DIR)dev/docker-compose.yml.dist $(MAKEFILE_ABS_DIR)../../docker-compose.yml
+
+.PHONY: pro
+pro: clean
+	rsync -arv --files-from=$(MAKEFILE_ABS_DIR)pro/app/include                   $(MAKEFILE_ABS_DIR)../../ $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com
+	rsync -arv --files-from=$(MAKEFILE_ABS_DIR)pro/web/include --exclude='*.php' $(MAKEFILE_ABS_DIR)../../ $(MAKEFILE_ABS_DIR)pro/web/docker-symfony.com
+	cp $(MAKEFILE_ABS_DIR)pro/app/parameters.yml.pro $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com/app/config/parameters.yml
+	docker run --rm -t -e SYMFONY_ENV=prod -v $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com:/var/www/docker-symfony.com -w /var/www/docker-symfony.com 1maa/php-dev:7.0 composer install --no-dev --no-scripts --optimize-autoloader
+	docker run --rm -t -e SYMFONY_ENV=prod -v $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com:/var/www/docker-symfony.com -v $(MAKEFILE_ABS_DIR)pro/web/docker-symfony.com/web:/var/www/docker-symfony.com/web -w /var/www/docker-symfony.com 1maa/php-dev:7.0 php bin/console assets:install web
+	docker-compose -f $(MAKEFILE_ABS_DIR)pro/docker-compose.yml build
+
+.PHONY: clean
+clean:
+	sudo rm -rf $(MAKEFILE_ABS_DIR)pro/web/docker-symfony.com
+	sudo rm -rf $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com

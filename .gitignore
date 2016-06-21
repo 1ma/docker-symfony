@@ -1,6 +1,8 @@
 /app/config/parameters.yml
 /build/
 /docker-compose.yml
+/etc/docker/pro/app/docker-symfony.com
+/etc/docker/pro/web/docker-symfony.com
 /phpunit.xml
 /var/*
 !/var/cache
