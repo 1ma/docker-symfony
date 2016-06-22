@@ -11,6 +11,7 @@ pro: clean
 	cp $(MAKEFILE_ABS_DIR)pro/app/parameters.yml.pro $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com/app/config/parameters.yml
 	docker run --rm -t -e SYMFONY_ENV=prod -v $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com:/var/www/docker-symfony.com -w /var/www/docker-symfony.com 1maa/php-dev:7.0 composer install --no-dev --no-scripts --optimize-autoloader
 	docker run --rm -t -e SYMFONY_ENV=prod -v $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com:/var/www/docker-symfony.com -v $(MAKEFILE_ABS_DIR)pro/web/docker-symfony.com/web:/var/www/docker-symfony.com/web -w /var/www/docker-symfony.com 1maa/php-dev:7.0 php bin/console assets:install web
+	sudo rm -rf $(MAKEFILE_ABS_DIR)pro/app/docker-symfony.com/var/cache/*
 	docker build -t docker-symfony-app:$(shell date +%s) $(MAKEFILE_ABS_DIR)pro/app
 	docker build -t docker-symfony-web:$(shell date +%s) $(MAKEFILE_ABS_DIR)pro/web
 
