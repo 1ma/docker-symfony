@@ -12,6 +12,9 @@ services:
       - app
   app:
     image: 1maa/php-dev:7.0
+    depends_on:
+      - db
+      - kvs
     ports:
       - "4444:22"
     volumes:
@@ -21,5 +24,10 @@ services:
     image: 1maa/postgres-dev:9.5
     volumes:
       - db_data:/var/lib/postgres/9.5
+  kvs:
+    image: redis:3.2-alpine
+    volumes:
+      - kvs_data:/data
 volumes:
   db_data: ~
+  kvs_data: ~

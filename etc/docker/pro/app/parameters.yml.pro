@@ -13,4 +13,5 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
+    redis_host: somewhere_else
     secret: 528756867624db3019abe58affd66e72b6240652
