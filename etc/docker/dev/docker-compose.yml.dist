@@ -11,7 +11,7 @@ services:
     volumes_from:
       - app
   app:
-    image: 1maa/php-dev:7.0
+    image: 1maa/php-fpm:7.0-xdebug
     depends_on:
       - db
       - kvs
