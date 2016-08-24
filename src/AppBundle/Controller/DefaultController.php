@@ -16,6 +16,8 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
+            'ifconfig' => trim(shell_exec('ifconfig eth0')),
+            'hostname' => trim(shell_exec('hostname')),
         ]);
     }
 }

@@ -42,6 +42,12 @@
                 </p>
             </div>
 
+            <hr>
+
+            <div id="ifconfig">
+                <h2><pre>{{ hostname }}:/# ifconfig eth0</pre></h2>
+                <pre>{{ ifconfig }}</pre>
+            </div>
         </div>
     </div>
 {% endblock %}
