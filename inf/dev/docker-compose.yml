@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./etc/docker/dev/web:/etc/nginx/conf.d
+      - ./inf/dev/web/default.conf:/etc/nginx/conf.d/default.conf
     volumes_from:
       - app
   app:
